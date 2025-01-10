@@ -20,15 +20,20 @@ The AI Module includes:
 ## Usage
 
 ### Drawing Module
-Here’s how you can use the Drawing Module to make your robotic arm draw an image:
+Here’s how you can use the Drawing Module to make your robotic arm draw an image or polygon:
 ```python
 from drawing import Drawing
 
 drawer = Drawing()
 drawer.cali_z()
-drawer.edges_from_image('sample/spiral.jpg')
-drawer.extract_points_groups()
-drawer.invert_point_groups()
-drawer.resize_point_groups()
-drawer.draw()
+
+# Sample of drawing spiral
+drawer.draw('sample/spiral.jpg')
+
+# Sample of drawing polygon
+drawer.draw_poly(num_side=5, depth=3)
 ```
+
+![Spiral Image](drawing/sample/spiral.jpg)
+
+![Polygon Image](drawing/sample/polygon.png)

@@ -18,7 +18,8 @@
       <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="_static/js/theme.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
-    <link rel="search" title="Search" href="search.html" /> 
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="prev" title="drawing" href="modules.html" /> 
 </head>
 
 <body class="wy-body-for-nav"> 
@@ -40,32 +41,22 @@
   </form>
 </div>
         </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
-              <!-- Local TOC -->
-              <div class="local-toc"><ul>
-<li><a class="reference internal" href="#">drawing package</a><ul>
-<li><a class="reference internal" href="#submodules">Submodules</a></li>
-<li><a class="reference internal" href="#module-drawing.drawing">drawing.drawing module</a><ul>
-<li><a class="reference internal" href="#drawing.drawing.Drawing"><code class="docutils literal notranslate"><span class="pre">Drawing</span></code></a><ul>
-<li><a class="reference internal" href="#drawing.drawing.Drawing.__init__"><code class="docutils literal notranslate"><span class="pre">Drawing.__init__()</span></code></a></li>
-<li><a class="reference internal" href="#drawing.drawing.Drawing.cali_z"><code class="docutils literal notranslate"><span class="pre">Drawing.cali_z()</span></code></a></li>
-<li><a class="reference internal" href="#drawing.drawing.Drawing.detect_ports"><code class="docutils literal notranslate"><span class="pre">Drawing.detect_ports()</span></code></a></li>
-<li><a class="reference internal" href="#drawing.drawing.Drawing.draw"><code class="docutils literal notranslate"><span class="pre">Drawing.draw()</span></code></a></li>
-<li><a class="reference internal" href="#drawing.drawing.Drawing.draw_area"><code class="docutils literal notranslate"><span class="pre">Drawing.draw_area()</span></code></a></li>
-<li><a class="reference internal" href="#drawing.drawing.Drawing.edges_from_image"><code class="docutils literal notranslate"><span class="pre">Drawing.edges_from_image()</span></code></a></li>
-<li><a class="reference internal" href="#drawing.drawing.Drawing.extract_points_groups"><code class="docutils literal notranslate"><span class="pre">Drawing.extract_points_groups()</span></code></a></li>
-<li><a class="reference internal" href="#drawing.drawing.Drawing.invert_point_groups"><code class="docutils literal notranslate"><span class="pre">Drawing.invert_point_groups()</span></code></a></li>
-<li><a class="reference internal" href="#drawing.drawing.Drawing.preview"><code class="docutils literal notranslate"><span class="pre">Drawing.preview()</span></code></a></li>
-<li><a class="reference internal" href="#drawing.drawing.Drawing.resize_point_groups"><code class="docutils literal notranslate"><span class="pre">Drawing.resize_point_groups()</span></code></a></li>
-<li><a class="reference internal" href="#drawing.drawing.Drawing.wait_idle"><code class="docutils literal notranslate"><span class="pre">Drawing.wait_idle()</span></code></a></li>
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="modules.html">drawing</a><ul class="current">
+<li class="toctree-l2 current"><a class="current reference internal" href="#">drawing package</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#submodules">Submodules</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#module-drawing.drawing">drawing.drawing module</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#drawing.drawing.Drawing"><code class="docutils literal notranslate"><span class="pre">Drawing</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#module-drawing">Module contents</a></li>
 </ul>
 </li>
 </ul>
 </li>
-<li><a class="reference internal" href="#module-drawing">Module contents</a></li>
 </ul>
-</li>
-</ul>
-</div>
+
         </div>
       </div>
     </nav>
@@ -80,6 +71,7 @@
           <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
       <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="modules.html">drawing</a></li>
       <li class="breadcrumb-item active">drawing package</li>
       <li class="wy-breadcrumbs-aside">
             <a href="_sources/drawing.rst.txt" rel="nofollow"> View page source</a>
@@ -123,16 +115,16 @@
 <div class="admonition-examples admonition">
 <p class="admonition-title">Examples</p>
 <div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">serial1</span> <span class="o">=</span> <span class="n">serial</span><span class="o">.</span><span class="n">Serial</span><span class="p">(</span><span class="n">port</span><span class="o">=</span><span class="s1">&#39;/dev/tty.usbserial-1120&#39;</span><span class="p">,</span> <span class="n">baudrate</span><span class="o">=</span><span class="mi">115200</span><span class="p">)</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">draw1</span> <span class="o">=</span> <span class="n">Drawing</span><span class="p">(</span><span class="n">serial1</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">drawer1</span> <span class="o">=</span> <span class="n">Drawing</span><span class="p">(</span><span class="n">serial1</span><span class="p">)</span>
 </pre></div>
 </div>
-<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">draw2</span> <span class="o">=</span> <span class="n">Drawing</span><span class="p">(</span><span class="n">com_port</span><span class="o">=</span><span class="s1">&#39;/dev/tty.usbserial-1120&#39;</span><span class="p">)</span>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">drawer2</span> <span class="o">=</span> <span class="n">Drawing</span><span class="p">(</span><span class="n">com_port</span><span class="o">=</span><span class="s1">&#39;/dev/tty.usbserial-1120&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
 <div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">serial1</span> <span class="o">=</span> <span class="n">serial</span><span class="o">.</span><span class="n">Serial</span><span class="p">(</span><span class="n">port</span><span class="o">=</span><span class="s1">&#39;COM3&#39;</span><span class="p">,</span> <span class="n">baudrate</span><span class="o">=</span><span class="mi">115200</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">MT4_1</span> <span class="o">=</span> <span class="n">wlkatapython</span><span class="o">.</span><span class="n">MT4_UART</span><span class="p">(</span><span class="n">serial1</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">MT4_1</span><span class="o">.</span><span class="n">init</span><span class="p">(</span><span class="n">serial1</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">)</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">draw3</span> <span class="o">=</span> <span class="n">Drawing</span><span class="p">(</span><span class="n">robot</span><span class="o">=</span><span class="n">MT4_1</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">drawer3</span> <span class="o">=</span> <span class="n">Drawing</span><span class="p">(</span><span class="n">robot</span><span class="o">=</span><span class="n">MT4_1</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -145,7 +137,7 @@
 
 <dl class="py method">
 <dt class="sig sig-object py" id="drawing.drawing.Drawing.cali_z">
-<span class="sig-name descname"><span class="pre">cali_z</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">homing</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">float</span></span></span><a class="reference internal" href="_modules/drawing/drawing.html#Drawing.cali_z"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#drawing.drawing.Drawing.cali_z" title="Link to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">cali_z</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">homing</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">float</span></span></span><a class="reference internal" href="_modules/drawing/drawing.html#Drawing.cali_z"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#drawing.drawing.Drawing.cali_z" title="Link to this definition"></a></dt>
 <dd><p>Manually set the z position for drawing</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -170,22 +162,75 @@
 
 <dl class="py method">
 <dt class="sig sig-object py" id="drawing.drawing.Drawing.draw">
-<span class="sig-name descname"><span class="pre">draw</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">z_offset</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">10</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/drawing/drawing.html#Drawing.draw"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#drawing.drawing.Drawing.draw" title="Link to this definition"></a></dt>
-<dd><p>Draw the plot based on points_groups</p>
+<span class="sig-name descname"><span class="pre">draw</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">image_path</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">smoothness</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">0.0001</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">binary_threshold</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">127</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">method</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">3</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">blur</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">edge_detection_threshold1</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">100</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">edge_detection_threshold2</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">200</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">rotation</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">keep_aspect_ratio</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">border</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">float</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">float</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">5</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="_modules/drawing/drawing.html#Drawing.draw"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#drawing.drawing.Drawing.draw" title="Link to this definition"></a></dt>
+<dd><p>Draw the edges of given image</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>z_offset</strong> (<code class="xref py py-obj docutils literal notranslate"><span class="pre">float</span></code>, optional) – Z offset when moving between line segments. (default: 10)</p>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>image_path</strong> (<code class="xref py py-obj docutils literal notranslate"><span class="pre">str</span></code>) – Input image path.</p></li>
+<li><p><strong>smoothness</strong> (<code class="xref py py-obj docutils literal notranslate"><span class="pre">float</span></code>, optional) – Smoothness parameter. Higher values simplify edges. (default: 0.0001)</p></li>
+<li><p><strong>binary_threshold</strong> (<code class="xref py py-obj docutils literal notranslate"><span class="pre">int</span></code>, optional) – Binary threshold for edge detection. (default: 127)</p></li>
+<li><p><strong>method</strong> (<code class="xref py py-obj docutils literal notranslate"><span class="pre">int</span></code>, optional) – Contour retrieval method. Options:
+cv2.RETR_TREE (default): Retrieve both inner and outer edges.
+cv2.RETR_EXTERNAL: Retrieve only the outer edges.</p></li>
+<li><p><strong>blur</strong> (<code class="xref py py-obj docutils literal notranslate"><span class="pre">bool</span></code>, optional) – Whether to apply Gaussian blur before edge detection. (default: True)</p></li>
+<li><p><strong>edge_detection_threshold1</strong> (<code class="xref py py-obj docutils literal notranslate"><span class="pre">int</span></code>, optional) – Lower threshold for Canny edge detection. (default: 100)</p></li>
+<li><p><strong>edge_detection_threshold2</strong> (<code class="xref py py-obj docutils literal notranslate"><span class="pre">int</span></code>, optional) – Upper threshold for Canny edge detection. (default: 200)</p></li>
+<li><p><strong>rotation</strong> (<code class="xref py py-obj docutils literal notranslate"><span class="pre">int</span></code>, optional) – Number of 90 degree clockwise rotations. (default: 0)</p></li>
+<li><p><strong>keep_aspect_ratio</strong> (<code class="xref py py-obj docutils literal notranslate"><span class="pre">bool</span></code>, optional) – Whether to keep aspect ratio. (default: True)</p></li>
+<li><p><strong>border</strong> (<code class="xref py py-obj docutils literal notranslate"><span class="pre">Union[float,</span> <span class="pre">tuple[float,</span> <span class="pre">float]]</span></code>, optional) – Border size. (default: 5)</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>None</p>
 </dd>
 </dl>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="drawing.drawing.Drawing.draw_area">
-<span class="sig-name descname"><span class="pre">draw_area</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">z_offset</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">10</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/drawing/drawing.html#Drawing.draw_area"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#drawing.drawing.Drawing.draw_area" title="Link to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">draw_area</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">z_offset</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">10</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="_modules/drawing/drawing.html#Drawing.draw_area"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#drawing.drawing.Drawing.draw_area" title="Link to this definition"></a></dt>
 <dd><p>Draw the boundary of drawing area</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><p><strong>z_offset</strong> (<code class="xref py py-obj docutils literal notranslate"><span class="pre">float</span></code>, optional) – Z offset when draw the area. (default: 10)</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="drawing.drawing.Drawing.draw_points">
+<span class="sig-name descname"><span class="pre">draw_points</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">points</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">list</span><span class="p"><span class="pre">[</span></span><span class="pre">tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">float</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">float</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">z_offset</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">10</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="_modules/drawing/drawing.html#Drawing.draw_points"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#drawing.drawing.Drawing.draw_points" title="Link to this definition"></a></dt>
+<dd><p>Draw given group of points</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>points</strong> (<code class="xref py py-obj docutils literal notranslate"><span class="pre">list[tuple[float,</span> <span class="pre">float]]</span></code>) – list of points coordinates</p></li>
+<li><p><strong>z_offset</strong> (<code class="xref py py-obj docutils literal notranslate"><span class="pre">float</span></code>, optional) – Z offset when moving between line segments. (default: 10)</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="drawing.drawing.Drawing.draw_poly">
+<span class="sig-name descname"><span class="pre">draw_poly</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">num_side</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">depth</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="_modules/drawing/drawing.html#Drawing.draw_poly"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#drawing.drawing.Drawing.draw_poly" title="Link to this definition"></a></dt>
+<dd><p>Draw a polygon with a specified number of sides and iteratively refines it for a given depth.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>num_side</strong> (<code class="xref py py-obj docutils literal notranslate"><span class="pre">int</span></code>) – Number of sides for the base polygon.</p></li>
+<li><p><strong>depth</strong> (<code class="xref py py-obj docutils literal notranslate"><span class="pre">int</span></code>) – Number of iterations to refine and draw the polygon.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>None</p>
 </dd>
 </dl>
 </dd></dl>
@@ -212,12 +257,12 @@ cv2.RETR_EXTERNAL: Retrieve only the outer edges.</p></li>
 <div class="admonition-examples admonition">
 <p class="admonition-title">Examples</p>
 <p>Basic usage with a sample image:</p>
-<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">draw1</span> <span class="o">=</span> <span class="n">Drawing</span><span class="p">(</span><span class="n">com_port</span><span class="o">=</span><span class="s2">&quot;/dev/tty.usbserial-1120&quot;</span><span class="p">)</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">draw1</span><span class="o">.</span><span class="n">edges_from_image</span><span class="p">(</span><span class="s2">&quot;image.jpg&quot;</span><span class="p">)</span>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">drawer</span> <span class="o">=</span> <span class="n">Drawing</span><span class="p">(</span><span class="n">com_port</span><span class="o">=</span><span class="s2">&quot;/dev/tty.usbserial-1120&quot;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">drawer</span><span class="o">.</span><span class="n">edges_from_image</span><span class="p">(</span><span class="s2">&quot;image.jpg&quot;</span><span class="p">)</span>
 </pre></div>
 </div>
 <p>Specifying all parameters:</p>
-<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">draw1</span><span class="o">.</span><span class="n">edges_from_image</span><span class="p">(</span><span class="s2">&quot;image.jpg&quot;</span><span class="p">,</span> <span class="n">smoothness</span><span class="o">=</span><span class="mf">0.01</span><span class="p">,</span> <span class="n">binary_threshold</span><span class="o">=</span><span class="mi">127</span><span class="p">,</span> <span class="n">method</span><span class="o">=</span><span class="n">cv2</span><span class="o">.</span><span class="n">RETR_EXTERNAL</span><span class="p">,</span> <span class="n">blur</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">edge_detection_threshold1</span><span class="o">=</span><span class="mi">50</span><span class="p">,</span> <span class="n">edge_detection_threshold2</span><span class="o">=</span><span class="mi">150</span><span class="p">)</span>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">drawer</span><span class="o">.</span><span class="n">edges_from_image</span><span class="p">(</span><span class="s2">&quot;image.jpg&quot;</span><span class="p">,</span> <span class="n">smoothness</span><span class="o">=</span><span class="mf">0.01</span><span class="p">,</span> <span class="n">binary_threshold</span><span class="o">=</span><span class="mi">127</span><span class="p">,</span> <span class="n">method</span><span class="o">=</span><span class="n">cv2</span><span class="o">.</span><span class="n">RETR_EXTERNAL</span><span class="p">,</span> <span class="n">blur</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">edge_detection_threshold1</span><span class="o">=</span><span class="mi">50</span><span class="p">,</span> <span class="n">edge_detection_threshold2</span><span class="o">=</span><span class="mi">150</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -243,6 +288,20 @@ cv2.RETR_EXTERNAL: Retrieve only the outer edges.</p></li>
 </dd></dl>
 
 <dl class="py method">
+<dt class="sig sig-object py" id="drawing.drawing.Drawing.generate_polygon_vertices">
+<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">generate_polygon_vertices</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">num_side</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">list</span><span class="p"><span class="pre">[</span></span><span class="pre">tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">float</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">float</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="_modules/drawing/drawing.html#Drawing.generate_polygon_vertices"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#drawing.drawing.Drawing.generate_polygon_vertices" title="Link to this definition"></a></dt>
+<dd><p>Generate the list of polygon vertices of given number of sides</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>num_side</strong> (<code class="xref py py-obj docutils literal notranslate"><span class="pre">int</span></code>) – Number of sides</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>List of polygon vertices closed loop (points[0] == points[-1])</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
 <dt class="sig sig-object py" id="drawing.drawing.Drawing.invert_point_groups">
 <span class="sig-name descname"><span class="pre">invert_point_groups</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">groups</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">list</span><span class="p"><span class="pre">[</span></span><span class="pre">list</span><span class="p"><span class="pre">[</span></span><span class="pre">tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">Any</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">rotation</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">0</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">list</span><span class="p"><span class="pre">[</span></span><span class="pre">list</span><span class="p"><span class="pre">[</span></span><span class="pre">tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">Any</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="_modules/drawing/drawing.html#Drawing.invert_point_groups"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#drawing.drawing.Drawing.invert_point_groups" title="Link to this definition"></a></dt>
 <dd><p>Invert points to make it view correctly</p>
@@ -260,9 +319,39 @@ cv2.RETR_EXTERNAL: Retrieve only the outer edges.</p></li>
 </dd></dl>
 
 <dl class="py method">
+<dt class="sig sig-object py" id="drawing.drawing.Drawing.mid_points">
+<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">mid_points</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">points</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">list</span><span class="p"><span class="pre">[</span></span><span class="pre">tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">float</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">float</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">list</span><span class="p"><span class="pre">[</span></span><span class="pre">tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">float</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">float</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="_modules/drawing/drawing.html#Drawing.mid_points"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#drawing.drawing.Drawing.mid_points" title="Link to this definition"></a></dt>
+<dd><p>Find mid-points of given group of points</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>points</strong> (<code class="xref py py-obj docutils literal notranslate"><span class="pre">list[tuple[float,</span> <span class="pre">float]]</span></code>) – list of points coordinates</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>List of mid-points coordinates</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="drawing.drawing.Drawing.pre_drawing">
+<span class="sig-name descname"><span class="pre">pre_drawing</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">bool</span></span></span><a class="reference internal" href="_modules/drawing/drawing.html#Drawing.pre_drawing"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#drawing.drawing.Drawing.pre_drawing" title="Link to this definition"></a></dt>
+<dd><p>Drawing preparation</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>True if preparation pass; False otherwise</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
 <dt class="sig sig-object py" id="drawing.drawing.Drawing.preview">
-<span class="sig-name descname"><span class="pre">preview</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/drawing/drawing.html#Drawing.preview"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#drawing.drawing.Drawing.preview" title="Link to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">preview</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="_modules/drawing/drawing.html#Drawing.preview"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#drawing.drawing.Drawing.preview" title="Link to this definition"></a></dt>
 <dd><p>Preview drawing trajectory</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>None</p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="py method">
@@ -274,7 +363,7 @@ cv2.RETR_EXTERNAL: Retrieve only the outer edges.</p></li>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>groups</strong> (<em>list</em><em>[</em><em>list</em><em>[</em><em>tuple</em><em>[</em><em>Any</em><em>, </em><em>Any</em><em>]</em><em>]</em><em>]</em><em>, </em><em>optional</em>) – List of points groups. (default: None)</p></li>
 <li><p><strong>keep_aspect_ratio</strong> (<code class="xref py py-obj docutils literal notranslate"><span class="pre">bool</span></code>, optional) – Whether to keep aspect ratio. (default: True)</p></li>
-<li><p><strong>border</strong> (<code class="xref py py-obj docutils literal notranslate"><span class="pre">Union[int,</span> <span class="pre">float,</span> <span class="pre">tuple[float,</span> <span class="pre">float]]</span></code>, optional) – Border size. (default: 5)</p></li>
+<li><p><strong>border</strong> (<code class="xref py py-obj docutils literal notranslate"><span class="pre">Union[float,</span> <span class="pre">tuple[float,</span> <span class="pre">float]]</span></code>, optional) – Border size. (default: 5)</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
@@ -285,11 +374,18 @@ cv2.RETR_EXTERNAL: Retrieve only the outer edges.</p></li>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="drawing.drawing.Drawing.wait_idle">
-<span class="sig-name descname"><span class="pre">wait_idle</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">interval</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">0.5</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/drawing/drawing.html#Drawing.wait_idle"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#drawing.drawing.Drawing.wait_idle" title="Link to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">wait_idle</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">interval</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">0.5</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="_modules/drawing/drawing.html#Drawing.wait_idle"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#drawing.drawing.Drawing.wait_idle" title="Link to this definition"></a></dt>
 <dd><p>Wait until robotic arm in Idle state</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>During the robotic arm homing process, the robotic arm will remain temporarily idle, which might cause it to exit the loop.</p>
+</div>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><p><strong>interval</strong> (<code class="xref py py-obj docutils literal notranslate"><span class="pre">float</span></code>, optional) – Time in seconds to wait between idle states. (default: 0.5)</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>None</p>
 </dd>
 </dl>
 </dd></dl>
@@ -305,7 +401,9 @@ cv2.RETR_EXTERNAL: Retrieve only the outer edges.</p></li>
 
            </div>
           </div>
-          <footer>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="modules.html" class="btn btn-neutral float-left" title="drawing" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+    </div>
 
   <hr/>
 

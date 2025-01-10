@@ -1,3 +1,4 @@
+import math
 import platform
 import subprocess
 import time
@@ -39,14 +40,14 @@ class Drawing:
 
         Examples:
             >>> serial1 = serial.Serial(port='/dev/tty.usbserial-1120', baudrate=115200)
-            >>> draw1 = Drawing(serial1)
+            >>> drawer1 = Drawing(serial1)
 
-            >>> draw2 = Drawing(com_port='/dev/tty.usbserial-1120')
+            >>> drawer2 = Drawing(com_port='/dev/tty.usbserial-1120')
 
             >>> serial1 = serial.Serial(port='COM3', baudrate=115200)
             >>> MT4_1 = wlkatapython.MT4_UART(serial1)
             >>> MT4_1.init(serial1, -1)
-            >>> draw3 = Drawing(robot=MT4_1)
+            >>> drawer3 = Drawing(robot=MT4_1)
 
         Raises:
             :class:`Exception`: If serial port or baud_rate is not valid
@@ -91,8 +92,8 @@ class Drawing:
                 self.robot.pSerial = self.ser
             except:
                 # TODO: Error types
-                # pass
-                raise Exception("Unable to open serial port")
+                pass
+                # raise Exception("Unable to open serial port")
 
         self.line_segments_groups = None
         self.points_groups = None
@@ -173,12 +174,12 @@ class Drawing:
         Examples:
             Basic usage with a sample image:
 
-            >>> draw1 = Drawing(com_port="/dev/tty.usbserial-1120")
-            >>> draw1.edges_from_image("image.jpg")
+            >>> drawer = Drawing(com_port="/dev/tty.usbserial-1120")
+            >>> drawer.edges_from_image("image.jpg")
 
             Specifying all parameters:
 
-            >>> draw1.edges_from_image("image.jpg", smoothness=0.01, binary_threshold=127, method=cv2.RETR_EXTERNAL, blur=False, edge_detection_threshold1=50, edge_detection_threshold2=150)
+            >>> drawer.edges_from_image("image.jpg", smoothness=0.01, binary_threshold=127, method=cv2.RETR_EXTERNAL, blur=False, edge_detection_threshold1=50, edge_detection_threshold2=150)
 
         Returns:
             List of line segment groups, where each group corresponds to edges in a contour
@@ -288,7 +289,7 @@ class Drawing:
             self,
             groups: list[list[tuple[Any, Any]]] = None,
             keep_aspect_ratio: bool = True,
-            border: Union[float, tuple[float, float]] = 5,
+            border: Union[float, tuple[float, float]] = 5
     ) -> list[list[tuple[float, float]]]:
         """
         Resize points to make it view correctly
@@ -296,7 +297,7 @@ class Drawing:
         Args:
             groups (list[list[tuple[Any, Any]]], optional): List of points groups. (default: None)
             keep_aspect_ratio (:obj:`bool`, optional): Whether to keep aspect ratio. (default: True)
-            border (:obj:`Union[int, float, tuple[float, float]]`, optional): Border size. (default: 5)
+            border (:obj:`Union[float, tuple[float, float]]`, optional): Border size. (default: 5)
 
         Returns:
             List of points groups, where each group corresponds to points in a contour after resizing
@@ -311,7 +312,7 @@ class Drawing:
 
         if groups is None:
             # TODO: Remove repeated line segments
-            groups = self.points_groups[::2]
+            groups = self.points_groups
 
         for points in groups:
             for point in points:
@@ -349,19 +350,25 @@ class Drawing:
     def wait_idle(
             self,
             interval: float = 0.5
-    ):
+    ) -> None:
         """
         Wait until robotic arm in Idle state
 
+        Note:
+            During the robotic arm homing process, the robotic arm will remain temporarily idle, which might cause it to exit the loop.
+
         Args:
             interval (:obj:`float`, optional): Time in seconds to wait between idle states. (default: 0.5)
+
+        Returns:
+            None
         """
         while self.robot.getState() != "Idle":
             time.sleep(interval)
 
     def cali_z(
             self,
-            homing=True
+            homing: bool = True
     ) -> float:
         """
         Manually set the z position for drawing
@@ -395,13 +402,16 @@ class Drawing:
 
     def draw_area(
             self,
-            z_offset = 10
-    ):
+            z_offset: float = 10
+    ) -> None:
         """
         Draw the boundary of drawing area
 
         Args:
             z_offset (:obj:`float`, optional): Z offset when draw the area. (default: 10)
+
+        Returns:
+            None
         """
         self.robot.sendMsg(f'M20 G90 G00 X{self.min_x} Y{self.min_y} Z{self.z + z_offset}')
         self.robot.sendMsg(f'M20 G90 G00 X{self.max_x} Y{self.min_y} Z{self.z + z_offset}')
@@ -409,9 +419,12 @@ class Drawing:
         self.robot.sendMsg(f'M20 G90 G00 X{self.min_x} Y{self.max_y} Z{self.z + z_offset}')
         self.robot.sendMsg(f'M20 G90 G00 X{self.min_x} Y{self.min_y} Z{self.z + z_offset}')
 
-    def preview(self):
+    def preview(self) -> None:
         """
         Preview drawing trajectory
+
+        Returns:
+            None
         """
         plt.figure(figsize=(10, 10))
 
@@ -424,6 +437,8 @@ class Drawing:
         plt.title(f"Approximated Line Segments")
         plt.xlabel("X Coordinate")
         plt.ylabel("Y Coordinate")
+        plt.xlim(self.min_x, self.max_x)
+        plt.ylim(self.min_y, self.max_y)
         plt.axhline(0, color='black', linewidth=0.5, linestyle='--')
         plt.axvline(0, color='black', linewidth=0.5, linestyle='--')
         plt.grid(True)
@@ -433,51 +448,189 @@ class Drawing:
 
     def draw(
             self,
-            z_offset=10
-    ):
+            image_path: str,
+            smoothness: float = 0.0001,
+            binary_threshold: int = 127,
+            method: int = cv2.RETR_TREE,
+            blur: bool = True,
+            edge_detection_threshold1: int = 100,
+            edge_detection_threshold2: int = 200,
+            rotation: int = 0,
+            keep_aspect_ratio: bool = True,
+            border: Union[float, tuple[float, float]] = 5,
+    ) -> None:
         """
-        Draw the plot based on points_groups
+        Draw the edges of given image
 
         Args:
-            z_offset (:obj:`float`, optional): Z offset when moving between line segments. (default: 10)
-        """
-        self.preview()
-        while (line := input('Sample plot looks good? (y/[n]): ')).lower() != 'y':
-            if line == '' or line.lower() == 'n':
-                return
-            # TODO: Change smoothness with input
-            # try:
-            #     line = float(line)
-            #     self.edges_from_image('../imgs/1.jpg', smoothness=)
-            # except ValueError:
-            #     warnings.warn(f'Unknown message: {line}')
-            #     continue
+            image_path (:obj:`str`): Input image path.
+            smoothness (:obj:`float`, optional): Smoothness parameter. Higher values simplify edges. (default: 0.0001)
+            binary_threshold (:obj:`int`, optional): Binary threshold for edge detection. (default: 127)
+            method (:obj:`int`, optional): Contour retrieval method. Options:
+                    cv2.RETR_TREE (default): Retrieve both inner and outer edges.
+                    cv2.RETR_EXTERNAL: Retrieve only the outer edges.
+            blur (:obj:`bool`, optional): Whether to apply Gaussian blur before edge detection. (default: True)
+            edge_detection_threshold1 (:obj:`int`, optional): Lower threshold for Canny edge detection. (default: 100)
+            edge_detection_threshold2 (:obj:`int`, optional): Upper threshold for Canny edge detection. (default: 200)
+            rotation (:obj:`int`, optional): Number of 90 degree clockwise rotations. (default: 0)
+            keep_aspect_ratio (:obj:`bool`, optional): Whether to keep aspect ratio. (default: True)
+            border (:obj:`Union[float, tuple[float, float]]`, optional): Border size. (default: 5)
 
-        self.draw_area()
-        if input('Start drawing? (y/[n]): ').lower() != 'y':
+        Returns:
+            None
+        """
+        self.edges_from_image(
+            image_path,
+            smoothness=smoothness,
+            binary_threshold=binary_threshold,
+            method=method, blur=blur,
+            edge_detection_threshold1=edge_detection_threshold1,
+            edge_detection_threshold2=edge_detection_threshold2
+        )
+
+        self.extract_points_groups()
+        self.invert_point_groups(rotation=rotation)
+        self.resize_point_groups(keep_aspect_ratio=keep_aspect_ratio, border=border)
+
+        if not self.pre_drawing():
+            return
+
+        for resized_points in self.points_groups:
+            self.draw_points(resized_points)
+
+
+    def draw_points(
+            self,
+            points: list[tuple[float, float]],
+            z_offset: float = 10
+    ) -> None:
+        """
+        Draw given group of points
+
+        Args:
+            points (:obj:`list[tuple[float, float]]`): list of points coordinates
+            z_offset (:obj:`float`, optional): Z offset when moving between line segments. (default: 10)
+
+        Returns:
+            None
+        """
+        if len(points) == 0:
             return
 
         try:
-            for resized_points in self.points_groups:
-                self.robot.sendMsg(f'M20 G90 G00 X{resized_points[0][0]} Y{resized_points[0][1]} Z{self.z + z_offset}')
+            first_point = points[0]
+            last_point = points[-1]
 
-                for point in resized_points:
-                    self.robot.sendMsg(f'M20 G90 G00 X{point[0]} Y{point[1]} Z{self.z}')
+            self.robot.sendMsg(f'M20 G90 G00 X{first_point[0]:2f} Y{first_point[1]:2f} Z{self.z + z_offset:2f}')
 
-                self.robot.sendMsg(f'M20 G90 G00 X{resized_points[-1][0]} Y{resized_points[-1][1]} Z{self.z + z_offset}')
+            for point in points:
+                self.robot.sendMsg(f'M20 G90 G00 X{point[0]:2f} Y{point[1]:2f} Z{self.z:2f}')
 
-            self.robot.sendMsg(f'M20 G90 G00 X{self.min_x} Y{self.min_y} Z{self.z + z_offset}')
+            self.robot.sendMsg(f'M20 G90 G00 X{last_point[0]:2f} Y{last_point[1]:2f} Z{self.z + z_offset:2f}')
         except KeyboardInterrupt:
             # TODO: Emergency stop
             pass
 
+    @classmethod
+    def mid_points(
+            cls,
+            points: list[tuple[float, float]]
+    ) -> list[tuple[float, float]]:
+        """
+        Find mid-points of given group of points
+
+        Args:
+            points (:obj:`list[tuple[float, float]]`): list of points coordinates
+
+        Returns:
+            List of mid-points coordinates
+        """
+        if len(points) == 0:
+            return []
+
+        tmp = []
+        for i in range(len(points) - 1):
+            pt_x, pt_y = points[i][0] + points[i + 1][0], points[i][1] + points[i + 1][1]
+            tmp.append((pt_x / 2, pt_y / 2))
+
+        if points[0] == points[-1]:
+            tmp.append((tmp[0][0], tmp[0][1]))
+
+        return tmp
+
+    @classmethod
+    def generate_polygon_vertices(
+            cls,
+            num_side: int
+    ) -> list[tuple[float, float]]:
+        """
+        Generate the list of polygon vertices of given number of sides
+
+        Args:
+            num_side (:obj:`int`): Number of sides
+
+        Returns:
+            List of polygon vertices closed loop (points[0] == points[-1])
+        """
+        angle = 2 * math.pi / num_side
+        tmp = []
+        for i in range(num_side):
+            tmp.append((math.cos(i * angle), math.sin(i * angle)))
+        tmp.append((tmp[0][0], tmp[0][1]))
+        return tmp
+
+    def pre_drawing(self) -> bool:
+        """
+        Drawing preparation
+
+        Returns:
+            True if preparation pass; False otherwise
+        """
+        self.preview()
+        while (line := input('Sample plot looks good? (y/[n]): ')).lower() != 'y':
+            if line == '' or line.lower() == 'n':
+                # TODO: smoothness
+                return False
+        self.draw_area()
+        if input('Start drawing? (y/[n]): ').lower() != 'y':
+            return False
+        return True
+
+    def draw_poly(
+            self,
+            num_side: int,
+            depth: int
+    ) -> None:
+        """
+        Draw a polygon with a specified number of sides and iteratively refines it for a given depth.
+
+        Args:
+            num_side (:obj:`int`): Number of sides for the base polygon.
+            depth (:obj:`int`): Number of iterations to refine and draw the polygon.
+
+        Returns:
+            None
+        """
+        points = Drawing.generate_polygon_vertices(num_side)
+        self.points_groups = [points]
+        points = self.resize_point_groups(keep_aspect_ratio=True)[0]
+
+        if not self.pre_drawing():
+            return
+
+        for _ in range(depth):
+            self.points_groups = [points]
+            self.draw_points(points)
+            points = Drawing.mid_points(points)
+            self.wait_idle()
+
 
 if __name__ == "__main__":
+    drawer = Drawing()
+    drawer.cali_z()
+
     # Sample of drawing spiral
-    draw = Drawing()
-    draw.cali_z()
-    draw.edges_from_image('sample/spiral.jpg')
-    draw.extract_points_groups()
-    draw.invert_point_groups()
-    draw.resize_point_groups()
-    draw.draw()
+    drawer.draw('sample/spiral.jpg')
+
+    # Sample of drawing polygon
+    drawer.draw_poly(num_side=5, depth=3)
