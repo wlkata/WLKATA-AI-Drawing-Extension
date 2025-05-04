@@ -5,6 +5,7 @@ import time
 import warnings
 from typing import Union, Any
 
+from tqdm import tqdm
 import cv2
 import serial
 import wlkatapython
@@ -184,6 +185,45 @@ class Drawing:
         Returns:
             List of line segment groups, where each group corresponds to edges in a contour
         """
+        # image = cv2.imread('sample/face4.png', cv2.IMREAD_GRAYSCALE)
+        #
+        # inverted = cv2.bitwise_not(image)
+        #
+        # # Set up blob detector parameters
+        # params = cv2.SimpleBlobDetector_Params()
+        #
+        # params.filterByArea = True
+        # params.minArea = 10
+        # params.maxArea = 2000
+        #
+        # params.filterByCircularity = True
+        # params.minCircularity = 0.8
+        #
+        # params.filterByInertia = False
+        # params.filterByConvexity = False
+        # params.filterByColor = False
+        #
+        # # Create detector
+        # detector = cv2.SimpleBlobDetector_create(params)
+        #
+        # # Detect blobs
+        # keypoints = detector.detect(inverted)
+        #
+        # img = cv2.imread('sample/face4.png', cv2.IMREAD_GRAYSCALE)
+        #
+        # # Threshold the image to binary (0 or 255)
+        # _, binary = cv2.threshold(img, 127, 255, cv2.THRESH_BINARY)
+        #
+        # # Convert to boolean for skeletonize: foreground=True (white), background=False
+        # binary_bool = binary == 255  # This gives a boolean array
+        #
+        # import numpy as np
+        # from skimage.morphology import skeletonize
+        # # Perform skeletonization
+        # skeleton = skeletonize(binary_bool)
+        #
+        # # Convert back to uint8 image for display: foreground=0 (black), background=255 (white)
+        # image = np.where(skeleton, 0, 255).astype(np.uint8)
 
         # Load the grayscale image
         image = cv2.imread(image_path, cv2.IMREAD_GRAYSCALE)
@@ -221,10 +261,18 @@ class Drawing:
                 line_segments.append([pt1, pt2])
 
             # Add the current group of line segments to the result
+            if len(line_segments) < 20:
+                continue
             line_segments_groups.append(line_segments)
 
-        self.line_segments_groups = line_segments_groups
-        return line_segments_groups
+        # for kp in keypoints:
+        #     x, y = kp.pt
+        #     r = kp.size
+        #     t = int(r * 2 ** -0.5)
+        #     line_segments_groups.append([[(x - r, y), (x - t, y + t)], [(x - t, y + t), (x, y + r)], [(x, y + r), (x + t, y + t)], [(x + t, y + t), (x + r, y)], [(x + r, y), (x + t, y - t)], [(x + t, y - t), (x, y - r)], [(x, y - r), (x - t, y - t)], [(x - t, y - t), (x - r, y)]])
+
+        self.line_segments_groups = line_segments_groups[::-1]
+        return line_segments_groups[::-1]
 
     def extract_points_groups(
             self,
@@ -248,8 +296,21 @@ class Drawing:
             group: list[tuple[int, int]] = []
             for segment in line_segments:
                 group.append(segment[0])
-            group.append((group[0][0], group[0][1]))
+            if len(group) < 50:
+                continue
+            if len(group) > 300:
+                group = group[:len(group) // 2]
+            group = group[::5]
+            # group.append((group[0][0], group[0][1]))
             points.append(group)
+
+        # for i in range(len(points)):
+        #     if len(points[i]) < 100:
+        #         continue
+        #
+        #     if len(points[i]) > 300:
+        #         points[i] = points[i][:len(points[i]) // 2]
+        #     points[i] = points[i][::5]
 
         self.points_groups = points
         return points
@@ -429,7 +490,7 @@ class Drawing:
         plt.figure(figsize=(10, 10))
 
         for group in self.points_groups:
-            for i in range(len(group)):
+            for i in range(len(group) - 1):
                 pt1 = group[i]
                 pt2 = group[(i + 1) % len(group)]
                 plt.plot([pt1[0], pt2[0]], [pt1[1], pt2[1]], color='blue')
@@ -495,7 +556,7 @@ class Drawing:
         if not self.pre_drawing():
             return
 
-        for resized_points in self.points_groups:
+        for resized_points in tqdm(self.points_groups):
             self.draw_points(resized_points)
 
 
@@ -627,10 +688,11 @@ class Drawing:
 
 if __name__ == "__main__":
     drawer = Drawing()
-    drawer.cali_z()
+    drawer.cali_z(homing=False)
 
     # Sample of drawing spiral
     drawer.draw('sample/spiral.jpg')
+    # drawer.draw('sample/face7.png', binary_threshold=225, blur=False)
 
     # Sample of drawing polygon
-    drawer.draw_poly(num_side=5, depth=3)
+    # drawer.draw_poly(num_side=5, depth=3)
