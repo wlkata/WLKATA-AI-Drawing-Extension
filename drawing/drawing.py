@@ -59,7 +59,7 @@ class Drawing:
         self.robot = None
 
         if ser is not None:
-            assert not ser.is_open, 'Serial is not open'
+            assert ser.is_open, 'Serial is not open'
             self.ser = ser
             self.com_port = ser.port
             self.baud_rate = ser.baudrate
@@ -492,7 +492,7 @@ class Drawing:
         for group in self.points_groups:
             for i in range(len(group) - 1):
                 pt1 = group[i]
-                pt2 = group[(i + 1) % len(group)]
+                pt2 = group[i + 1]
                 plt.plot([pt1[0], pt2[0]], [pt1[1], pt2[1]], color='blue')
 
         plt.title(f"Approximated Line Segments")
