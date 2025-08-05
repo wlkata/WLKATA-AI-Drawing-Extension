@@ -79,6 +79,5 @@ fabric.properties
 # Pycharm
 .idea
 
-data
-src
+/data/
 **/*.pt
