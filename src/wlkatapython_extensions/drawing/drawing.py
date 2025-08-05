@@ -3,7 +3,7 @@ import platform
 import subprocess
 import time
 import warnings
-from typing import Union, Any
+from typing import Union, Any, List, Tuple
 
 from tqdm import tqdm
 import cv2
@@ -111,7 +111,7 @@ class Drawing:
     @classmethod
     def detect_ports(
             cls
-    ) -> list[str]:
+    ) -> List[str]:
         """
         Get available serial ports
 
@@ -149,14 +149,14 @@ class Drawing:
 
     def edges_from_image(
             self,
-            image_path: Union[str, list[str]],
+            image_path: Union[str, List[str]],
             smoothness: float = 0.0001,
             binary_threshold: int = 127,
             method: int = cv2.RETR_TREE,
             blur: bool = True,
             edge_detection_threshold1: int = 100,
             edge_detection_threshold2: int = 200
-    ) -> list[list[list[tuple[Any, Any]]]]:
+    ) -> List[List[List[Tuple[Any, Any]]]]:
 
         """
         Extract edges from image and approximate them with line segments based on smoothness.
@@ -256,13 +256,13 @@ class Drawing:
 
     def extract_points_groups(
             self,
-            line_segments_groups: list[list[tuple[int, int]]] = None
-    ) -> list[list[tuple[int, int]]]:
+            line_segments_groups: List[List[Tuple[int, int]]] = None
+    ) -> List[List[Tuple[int, int]]]:
         """
         Extract end points from list of edge segments
 
         Args:
-            line_segments_groups (list[list[tuple[int, int]]], optional): List of line segments groups. (default: None)
+            line_segments_groups (List[List[Tuple[int, int]]], optional): List of line segments groups. (default: None)
 
         Returns:
             List of points groups, where each group corresponds to points in a contour
@@ -273,7 +273,7 @@ class Drawing:
         points = []
 
         for line_segments in line_segments_groups:
-            group: list[tuple[int, int]] = []
+            group: List[Tuple[int, int]] = []
             for segment in line_segments:
                 group.append(segment[0])
             if len(group) < 50:
@@ -297,14 +297,14 @@ class Drawing:
 
     def invert_point_groups(
             self,
-            groups: list[list[tuple[Any, Any]]] = None,
+            groups: List[List[Tuple[Any, Any]]] = None,
             rotation: int = 0
-    ) -> list[list[tuple[Any, Any]]]:
+    ) -> List[List[Tuple[Any, Any]]]:
         """
         Invert points to make it view correctly
 
         Args:
-            groups (list[list[tuple[Any, Any]]], optional): List of points groups. (default: None)
+            groups (List[List[Tuple[Any, Any]]], optional): List of points groups. (default: None)
             rotation (:obj:`int`, optional): Number of 90 degree clockwise rotations. (default: 0)
 
         Returns:
@@ -328,17 +328,17 @@ class Drawing:
 
     def resize_point_groups(
             self,
-            groups: list[list[tuple[Any, Any]]] = None,
+            groups: List[List[Tuple[Any, Any]]] = None,
             keep_aspect_ratio: bool = True,
-            border: Union[float, tuple[float, float]] = 5
-    ) -> list[list[tuple[float, float]]]:
+            border: Union[float, Tuple[float, float]] = 5
+    ) -> List[List[Tuple[float, float]]]:
         """
         Resize points to make it view correctly
 
         Args:
-            groups (list[list[tuple[Any, Any]]], optional): List of points groups. (default: None)
+            groups (List[List[Tuple[Any, Any]]], optional): List of points groups. (default: None)
             keep_aspect_ratio (:obj:`bool`, optional): Whether to keep aspect ratio. (default: True)
-            border (:obj:`Union[float, tuple[float, float]]`, optional): Border size. (default: 5)
+            border (:obj:`Union[float, Tuple[float, float]]`, optional): Border size. (default: 5)
 
         Returns:
             List of points groups, where each group corresponds to points in a contour after resizing
@@ -442,7 +442,6 @@ class Drawing:
             self.robot.sendMsg(f"M20 G91 G00 Z{line}")
             self.wait_idle()
         self.z = temp_z
-        print(self.z)
         return self.z
 
     def draw_area(
@@ -495,7 +494,7 @@ class Drawing:
 
     def draw(
             self,
-            image_path: Union[str, list[str]],
+            image_path: Union[str, List[str]],
             smoothness: float = 0.0001,
             binary_threshold: int = 127,
             method: int = cv2.RETR_TREE,
@@ -504,7 +503,7 @@ class Drawing:
             edge_detection_threshold2: int = 200,
             rotation: int = 0,
             keep_aspect_ratio: bool = True,
-            border: Union[float, tuple[float, float]] = 5,
+            border: Union[float, Tuple[float, float]] = 5,
     ) -> None:
         """
         Draw the edges of given image
@@ -521,7 +520,7 @@ class Drawing:
             edge_detection_threshold2 (:obj:`int`, optional): Upper threshold for Canny edge detection. (default: 200)
             rotation (:obj:`int`, optional): Number of 90 degree clockwise rotations. (default: 0)
             keep_aspect_ratio (:obj:`bool`, optional): Whether to keep aspect ratio. (default: True)
-            border (:obj:`Union[float, tuple[float, float]]`, optional): Border size. (default: 5)
+            border (:obj:`Union[float, Tuple[float, float]]`, optional): Border size. (default: 5)
 
         Returns:
             None
@@ -548,14 +547,14 @@ class Drawing:
 
     def draw_points(
             self,
-            points: list[tuple[float, float]],
+            points: List[Tuple[float, float]],
             z_offset: float = 10
     ) -> None:
         """
         Draw given group of points
 
         Args:
-            points (:obj:`list[tuple[float, float]]`): list of points coordinates
+            points (:obj:`List[Tuple[float, float]]`): list of points coordinates
             z_offset (:obj:`float`, optional): Z offset when moving between line segments. (default: 10)
 
         Returns:
@@ -582,13 +581,13 @@ class Drawing:
     @classmethod
     def mid_points(
             cls,
-            points: list[tuple[float, float]]
-    ) -> list[tuple[float, float]]:
+            points: List[Tuple[float, float]]
+    ) -> List[Tuple[float, float]]:
         """
         Find mid-points of given group of points
 
         Args:
-            points (:obj:`list[tuple[float, float]]`): list of points coordinates
+            points (:obj:`List[Tuple[float, float]]`): list of points coordinates
 
         Returns:
             List of mid-points coordinates
@@ -610,7 +609,7 @@ class Drawing:
     def generate_polygon_vertices(
             cls,
             num_side: int
-    ) -> list[tuple[float, float]]:
+    ) -> List[Tuple[float, float]]:
         """
         Generate the list of polygon vertices of given number of sides
 
@@ -674,6 +673,45 @@ class Drawing:
             self.draw_points(points)
             points = Drawing.mid_points(points)
             self.wait_idle()
+
+
+    def draw_digit(self, digit: str, calibration: bool = True, pre_draw: bool = True) -> None:
+        """
+        Draw a digit with given digit from ['(', ')', '+', '-', '*', '/', '0', '1', ..., '8', '9']
+        """
+        if len(digit) != 1 or digit not in '()+-*/0123456789':
+            warnings.warn(f'Unsupported digit: {digit}\nSKIPPING')
+            return
+        if digit == '/':
+            digit = 'd'
+
+        points = []
+        segments = []
+        with open(f'data/numbers/{digit}.txt', 'r') as f:
+            for line in f.readlines():
+                line = line.strip()
+                if line:
+                    if line == '-1,-1':
+                        points.append(segments[::5] + [segments[-1]])
+                        segments = []
+                    else:
+                        tmp = line.split(',')
+                        segments.append((int(tmp[0]), int(tmp[1])))
+        if segments:
+            points.append(segments[::5] + [segments[-1]])
+
+        self.points_groups = points
+        self.invert_point_groups(rotation=1)
+        self.resize_point_groups(keep_aspect_ratio=True, border=(1, 3))
+
+        if calibration:
+            self.cali_z(homing=False)
+
+        if pre_draw and not self.pre_drawing():
+            return
+
+        for resized_points in self.points_groups:
+            self.draw_points(resized_points)
 
 
 if __name__ == "__main__":

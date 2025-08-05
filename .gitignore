@@ -80,4 +80,5 @@ fabric.properties
 .idea
 
 data
+src
 **/*.pt
