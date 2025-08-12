@@ -162,9 +162,16 @@ drawer.draw('sample/spiral.jpg')
 # Sample of drawing polygon
 drawer.draw_poly(num_side=5, depth=3)
 ```
+Sample images are also provided under `src/wlkatapython_extensions/drawing/data/sample`
 
 <p align="center">
-  <img src="drawing/sample/spiral.jpg" alt="Spiral Drawing Example" width="30%" />
-  <img src="drawing/sample/polygon.png" alt="Polygon Drawing Example" width="30%" />
+  <img src="src/wlkatapython_extensions/drawing/data/sample/spiral.jpg" alt="Spiral Drawing Example" width="30%" />
+  <img src="src/wlkatapython_extensions/drawing/data/sample/letter_A.png" alt="Polygon Drawing Example" width="30%" />
 </p>
-<p align="center"><em>Figure 4: Example outputs from simple drawing tests — a spiral (left) and a polygon (right) drawn by the robotic arm.</em></p>
+<p align="center"><em>Figure 4: Sample images </em></p>
+
+<p align="center">
+  <img src="src/wlkatapython_extensions/drawing/data/sample/sample_face_3.png" alt="Spiral Drawing Example" width="30%" />
+  <img src="src/wlkatapython_extensions/drawing/data/sample/sample_face_2.png" alt="Polygon Drawing Example" width="30%" />
+</p>
+<p align="center"><em>Figure 5: Sample images</em></p>
