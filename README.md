@@ -1,22 +1,8 @@
-# Wlkata Python Extension - 🦾 Robotic Arm Drawing System
+# WLKATA AI Drawing Extension - 🦾 Robotic Arm Drawing System
 ## 🎨 This project brings robotic artistry to life! 
 > The system integrates computer vision, AI models, and robotic control to demonstrate practical automation and creative AI.
 
 `wlkatapython-extensions` is a versatile Python library designed to simplify advanced robotic arm operations and integrate AI functionalities. This library offers modules for drawing with robotic arms based on user-provided images and includes AI modules for vision and voice applications. Whether you're a hobbyist, researcher, or developer, `wlkatapython-extensions` empowers you to create and innovate with ease.
-
-## 🛠 Install
-**Conda**
-```bash
-git clone https://github.com/wlkata/wlkatapython-extensions.git
-cd wlkatapython-extensions
-conda env create -f create_conda_env.yml
-conda activate wlkata_extensions
-python drawing/drawing.py # For example
-```
-**Other venv**
-```bash
-pip install -r requirements.txt
-```
 
 ## ✨ Features
 
@@ -34,6 +20,20 @@ The Drawing Module enables users to:
 ### 3. Selfie Drawing
 - **Take a selfie**, convert it to **minimalist line art**
 - have the **robotic arm draw your portrait**.
+
+## 🛠 Install
+**Conda**
+```bash
+git clone https://github.com/wlkata/wlkatapython-extensions.git
+cd wlkatapython-extensions
+conda env create -f create_conda_env.yml
+conda activate wlkata_extensions
+python drawing/drawing.py # For example
+```
+**Other venv**
+```bash
+pip install -r requirements.txt
+```
 
 ## Example 1: 🃏 Poker Card Recognition & 24-Point Solver
 
